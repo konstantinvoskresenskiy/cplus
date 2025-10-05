@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-int main() {
+int main() 
     int n;
     std :: cin >> n;
     if (n <= 2) {
@@ -16,4 +16,3 @@ int main() {
     }
 }
     return 0;
-}
