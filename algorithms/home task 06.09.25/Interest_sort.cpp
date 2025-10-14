@@ -3,7 +3,9 @@ const int N = 1000;
 int a[N];
 int main() {
     int n,znach1,znach2;
+    std :: cout << "Введите размер массива ";
     std :: cin >> n;
+    std :: cout << "Введите  " << n << " элементов массива ";
     for (int i = 0;i < n;i++) {
         std :: cin >> a[i]; 
     }
@@ -21,8 +23,9 @@ int main() {
             }
         }
     }
+    std:: cout << "Отсортированный массив: ";
 for (int i = 0;i < n; i++) {
-    std:: cout << a[i] << " "<< std::endl;
+    std:: cout << a[i] << " ";
 }
 return 0;
 }

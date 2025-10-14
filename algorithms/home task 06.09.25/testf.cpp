@@ -43,6 +43,6 @@ int main() {
     s.replace(0, 4, "Special");
     std::cout << s << "\n";  // Special std::string functions
 
-    // удаление подстроки
+    // удаление подстрокиstd :: 
     s.erase(8, 5);  // Special string functions
 }
