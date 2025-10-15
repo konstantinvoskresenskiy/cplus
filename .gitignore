@@ -6,4 +6,6 @@
 *.ii
 *.s
 *.o
-*elf
+*bin
+*out
+
