@@ -6,6 +6,8 @@
 *.ii
 *.s
 *.o
-*bin
-*out
-
+*.bin
+*.out
+*.ko
+*.elf
+*.odj
