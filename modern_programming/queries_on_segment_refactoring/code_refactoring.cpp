@@ -5,99 +5,107 @@
 
 typedef long long ll;
 
-void arr_in(int* &v, int n);
-int arr_max(int* v, int size);
-void arr_out(int* v, int size);
-int* count_sort(int* v, int size);
-int interval(int* v, int l, int r);
-void prefix_sum_arr(int* v, int size);
-void random_arr(int* &out, int sz, int max_el_size);
+namespace ArrayUtils {
+    void inputArray(int* &array, int size);
+    int findMaxElement(int* array, int size);
+    void printArray(int* array, int size);
+    int* countingSort(int* array, int size);
+    int countInRange(int* prefixSumArray, int leftBound, int rightBound);
+    void prefixSum(int* array, int size);
+    void randomArray(int* &outputArray, int size, int maxElementValue);
+}
 
 int main(){
-    int* arr = nullptr;
-    int size, max_el;
+    int* array = nullptr;
+    int arraySize, maxElementValue;
     std::cout << "Введите размерность и максимальный элемент случайного вектора: ";
-    std::cin >> size >> max_el;
-    random_arr(arr, size, max_el);
+    std::cin >> arraySize >> maxElementValue;
+    ArrayUtils::randomArray(array, arraySize, maxElementValue);
     std::cout << "Сгенерированный вектор: ";
-    arr_out(arr, size);
+    ArrayUtils::printArray(array, arraySize);
     
-    int* sorted = count_sort(arr, size);
-    int sorted_size = arr_max(arr, size) + 1;
+    int* frequencyArray = ArrayUtils::countingSort(array, arraySize);
+    int frequencyArraySize = ArrayUtils::findMaxElement(array, arraySize) + 1;
     std::cout << "Отсортированный вектор(вектор частот): ";
-    arr_out(sorted, sorted_size);
+    ArrayUtils::printArray(frequencyArray, frequencyArraySize);
     
     std::cout << "Вектор префиксных сумм: ";
-    prefix_sum_arr(sorted, sorted_size);
-    arr_out(sorted, sorted_size);
+    ArrayUtils::prefixSum(frequencyArray, frequencyArraySize);
+    ArrayUtils::printArray(frequencyArray, frequencyArraySize);
     
-    int queries;
+    int queryCount;
     std::cout << "Введите количество будущих запросов: ";
-    std::cin >> queries;
+    std::cin >> queryCount;
     std::cout << std::endl;
     
-    for (int i = 0; i < queries; i++) {
+    for (int queryIndex = 0; queryIndex < queryCount; queryIndex++) {
         std::cout << "Введите левую и правую границы через пробел: ";
-        int left, right;
-        std::cin >> left >> right;
-        std::cout << "Количество чисел в промежутке [l;r] равно: " << interval(sorted, left, right) << std::endl;
+        int leftBound, rightBound;
+        std::cin >> leftBound >> rightBound;
+        std::cout << "Количество чисел в промежутке [l;r] равно: " 
+                  << ArrayUtils::countInRange(frequencyArray, leftBound, rightBound) << std::endl;
     }
 
-    delete[] arr;
-    delete[] sorted;
+    delete[] array;
+    delete[] frequencyArray;
     
     return 0;
 }
-void arr_in(int* &arr, int n) {
-    arr = new int[n];
-    for (int i = 0; i < n; i++) {
-        std::cin >> arr[i];
+
+void ArrayUtils::inputArray(int* &array, int size) {
+    array = new int[size];
+    for (int index = 0; index < size; index++) {
+        std::cin >> array[index];
     }
 }
-int arr_max(int* arr, int size) {
-    int n = -1;
-    for (int i = 0; i < size; i++) {
-        n = std::max(n, arr[i]);
+
+int ArrayUtils::findMaxElement(int* array, int size) {
+    int maxElement = -1;
+    for (int index = 0; index < size; index++) {
+        maxElement = std::max(maxElement, array[index]);
     }
-    return n;
+    return maxElement;
 }
-void arr_out(int* arr, int size) {
-    for (int i = 0; i < size; i++) {
-        std :: cout << arr[i] << " ";
+
+void ArrayUtils::printArray(int* array, int size) {
+    for (int index = 0; index < size; index++) {
+        std::cout << array[index] << " ";
     }
     std::cout << std::endl;
 }
-int* count_sort(int* arr, int size) {
-    int max_val = arr_max(arr, size);
-    int* out = new int[max_val + 1]();
-    for (int i = 0; i < size; i++) {
-        out[arr[i]] += 1;
+
+int* ArrayUtils::countingSort(int* array, int size) {
+    int maxValue = findMaxElement(array, size);
+    int* frequencyArray = new int[maxValue + 1]();
+    for (int index = 0; index < size; index++) {
+        frequencyArray[array[index]] += 1;
     }
-    return out;
+    return frequencyArray;
 }
-int interval(int* arr, int l, int r) {
-    int left;
-    if (l == 0) {
-        left = 0;
+
+int ArrayUtils::countInRange(int* prefixSumArray, int leftBound, int rightBound) {
+    int leftPrefixSum;
+    if (leftBound == 0) {
+        leftPrefixSum = 0;
     } else {
-        left = arr[l-1];
+        leftPrefixSum = prefixSumArray[leftBound - 1];
     }
-    int right = arr[r];
-    return right - left;
+    int rightPrefixSum = prefixSumArray[rightBound];
+    return rightPrefixSum - leftPrefixSum;
 }
-void prefix_sum_arr(int* arr, int size) {
-    for(int i = 0; i < size; i++) {
-        if(i != 0) {
-            arr[i] += arr[i-1];
+
+void ArrayUtils::prefixSum(int* array, int size) {
+    for(int index = 0; index < size; index++) {
+        if(index != 0) {
+            array[index] += array[index - 1];
         }
     }
 }
 
-void random_arr(int* &out, int sz, int max_el_size) {
-    out = new int[sz];
-    std::mt19937 rnd(time(NULL));
-    for (int i = 0; i < sz; i++) {
-        out[i] = rnd() % max_el_size;
+void ArrayUtils::randomArray(int* &outputArray, int size, int maxElementValue) {
+    outputArray = new int[size];
+    std::mt19937 randomGenerator(time(NULL));
+    for (int index = 0; index < size; index++) {
+        outputArray[index] = randomGenerator() % maxElementValue;
     }
 }
-
