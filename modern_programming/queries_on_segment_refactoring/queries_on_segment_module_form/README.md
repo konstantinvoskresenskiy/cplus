@@ -1,7 +1,3 @@
-
-
-# Interval Query Counter Project
-
 **Built with CMake and Modern C++ (C++17/20)**
 
 This project implements efficient algorithms for processing interval queries on arrays, including range maximum queries, prefix sum calculations, and optimized counting sort.
@@ -26,7 +22,6 @@ project/
 │ ├── interval_queries.cpp
 │ └── main.cpp # Program entry point
 └── README.md # Documentation
-
 
 
 
