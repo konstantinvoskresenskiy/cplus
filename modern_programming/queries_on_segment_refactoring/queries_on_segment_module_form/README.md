@@ -1,4 +1,4 @@
-markdown
+
 
 # Interval Query Counter Project
 
@@ -10,7 +10,7 @@ This project implements efficient algorithms for processing interval queries on 
 
 project/
 ├── CMakeLists.txt # CMake build configuration
-├── include/ # Header files
+├── headers/ # Header files
 │ ├── array_generator.h # Test array generation
 │ ├── array_io.h # Array input/output operations
 │ ├── array_max.h # Maximum element algorithms
@@ -26,6 +26,7 @@ project/
 │ ├── interval_queries.cpp
 │ └── main.cpp # Program entry point
 └── README.md # Documentation
-text
+
+
 
 
